@@ -75,48 +75,27 @@ If a user modifies any setting in the Workbench, the application marks previous 
 
 ---
 
-## 4. The Six Engineering Workbench Sections
+## 4. Product Demonstration Dashboard Architecture
 
-### 1. Overview
-- Real-time configuration summary banner (room dimensions, active anchors, noise level, seed).
-- Interactive Plotly 2D floor plan with dynamic axis scaling to display out-of-bounds estimates.
-- Primary metric cards: Baseline RMSE, AnchorGuard RMSE, Error Reduction %, Valid Estimate Rate, Out-of-Room Rate.
-- Explicit status badge: **CURRENT** vs **OUTDATED (STALE)**.
-- Prominent **Run Simulation** action button.
+AnchorGuard AI is presented as a single cohesive, presentation-ready product demonstration:
 
-### 2. Environment Studio
-- Room dimension editing with real-time bounding updates.
-- Geometric layout presets: **Perimeter** (6-8 anchors), **Corners** (4 anchors), **Grid** (3×3 = 9 anchors), and **Custom**.
-- Validated tabular coordinate editor: update coordinates $(x_i, y_i)$ and toggle active/inactive beacons directly.
-- Spatial Geometry Diagnostics: SVD condition ratio ($\sigma_2 / \sigma_1$), active anchor count, collinearity warnings.
-- Trajectory generator configuration (pattern, duration, speed).
-
-### 3. Measurement Lab
-- Measurement noise ($\sigma$), packet drop rate ($p_{\text{drop}}$), and positive NLOS probability & bias scale.
-- Anchor-specific outage multi-selection.
-- Reproducibility seed management and randomizer.
-- Standard presets toolbar: **Clean Room**, **Noisy Signals**, **Missing Readings**, and **Blocked Signals**.
-- Explicit Fault Model Disclosure banner documenting simulated vs unmodeled physical effects.
-
-### 4. Algorithm Lab
-- Estimator selection: Baseline NLS, Robust AnchorGuard, Optional AnchorGuard + Kalman filter.
-- Robust M-estimator tuning: Huber transition parameter $\delta$.
-- Outlier pruning: geometric consensus rejection threshold and max pruned anchor limit.
-- 2D Constant-Velocity Kalman filter process and measurement noise covariance parameters.
-- **Reset to Recommended Settings** action button.
-
-### 5. Evaluation Lab
-- Full empirical metric breakdown: RMSE, MAE, Median, P95, Max Error, Valid Estimate Rate, Out-of-Room Rate, Per-Step Runtime, Total Runtime.
-- Time-series tracking error chart ($e_t$ vs $t$) with gaps over failed steps.
-- Cumulative Distribution Function (CDF) error probability curve.
-- **Anchor Range Residual Diagnostics:** plot of range residuals $(\tilde{d}_{i,t} - \|\hat{\mathbf{p}}_t - \mathbf{a}_i\|)$ per anchor over time to identify NLOS contamination.
-- **Repeated-Trial Monte Carlo Engine:** evaluates multiple trials using sequential seeds, reporting Mean $\pm$ Standard Deviation and per-trial logs.
-
-### 6. Data & Reports
-- **JSON Configuration:** Export active configuration to JSON or upload previously saved JSON configuration with schema validation.
-- **CSV Data Export:** Export step-by-step Ground Truth, Measurements, Baseline Estimates, AnchorGuard Estimates, Residuals, and Statuses.
-- **Session Run History:** Save named experiment snapshots and inspect comparative tables across configurations.
-- **Engineering Report Generator:** Generates downloadable Markdown reports including system version, configuration metadata, empirical metrics, and explicit limitations.
+1. **Header & Context:** AnchorGuard AI branding, subtitle, 1-sentence indoor positioning problem definition, and live simulation status badge.
+2. **Compact Scenario Controls:**
+   - One-click Scenario Presets: **Normal Signals** (Ideal LOS), **Noisy Measurements** (AWGN interference), **Missing Readings** (Packet drops), and **Blocked Signals** (Severe NLOS multipath).
+   - Quick settings: Anchor layout (Perimeter 6, Corners 4, Grid 9), noise level $\sigma$, packet drop rate, and random seed.
+   - Prominent **Run Simulation** button.
+3. **Interactive Floor Plan (Visual Centerpiece):**
+   - High-contrast 2D floor plan with dynamic axis scaling.
+   - Displays Ground Truth path (emerald green), Conventional Baseline NLS (red dashed), AnchorGuard Robust (sky blue), active anchors (amber triangles), and failed estimation steps (crosses).
+4. **Performance Summary Metrics:**
+   - Baseline RMSE, AnchorGuard RMSE, Percentage Error Reduction, Median Error, 95th-Percentile Error, and Valid Solution Rate.
+   - Plain-English explanation of RMSE and fair improvement metrics.
+5. **What Happened and Why? (Dynamic Scientific Narrative):**
+   - Concise, dynamic 5-point explanation covering environmental conditions, measurement impact, trajectory observations, AnchorGuard algorithmic response, and physical indoor positioning significance.
+6. **Supporting Diagnostic Evidence:**
+   - Tracking Error over Time ($e_t$ vs $t$) and Cumulative Distribution Function (Error CDF).
+7. **Advanced Analysis & Diagnostics (Collapsed Expander):**
+   - Technical controls housed under a clean collapsed expander: algorithm tuning (Huber $\delta$, outlier pruning, Kalman filtering), raw anchor range residual diagnostics, multi-trial Monte Carlo evaluations (Mean $\pm$ Std), and full data exports (CSV time-series, JSON configuration, Markdown summary report).
 
 ---
 
